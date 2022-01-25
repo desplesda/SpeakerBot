@@ -1,0 +1,28 @@
+{
+  "name": "badatgames-speaker",
+  "version": "1.0.0",
+  "description": "A Discord text-to-speech bot for people who can't use their mic.",
+  "main": "speaker.js",
+  "scripts": {
+    "start": "node speaker.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jon Manning <jon@secretlab.games>",
+  "license": "MIT",
+  "dependencies": {
+    "@discordjs/builders": "^0.11.0",
+    "@discordjs/opus": "^0.7.0",
+    "@discordjs/rest": "^0.2.0-canary.0",
+    "@discordjs/voice": "^0.7.5",
+    "discord-api-types": "^0.26.1",
+    "discord.js": "^13.6.0",
+    "dotenv": "^14.2.0",
+    "microsoft-cognitiveservices-speech-sdk": "^1.19.0",
+    "opusscript": "^0.0.8",
+    "require-json5": "^1.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.7.0",
+    "libsodium-wrappers": "^0.7.9"
+  }
+}

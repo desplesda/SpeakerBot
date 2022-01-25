@@ -1,0 +1,17 @@
+{
+	// The bot has joined the voice channel.
+	"ConnectionComplete": "Done. I'm now speaking your messages in this channel.",
+	
+	// The bot has left the voice channel.
+	"DisconnectionComplete": "Done.",
+
+	// The bot was told to perform some action in the voice channel (like
+	// playing or leaving it), but it isn't currently connected.
+	"NotInChannel": "I'm not connected!",
+
+	// An internal error was encountered. (This message is for people in the channel; the actual error should be logged to the console.)
+	"InternalError": "I encountered an internal error! Sorry!! :(",
+
+	// The audio player failed to subscribe the player to the connection.
+	"FailedToSubscribe": "INTERNAL ERROR: Failed to subscribe the player!"
+}
