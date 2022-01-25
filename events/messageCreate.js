@@ -26,6 +26,8 @@ module.exports = {
 			return;
 		}
 
+		console.log(`[${(new Date).toISOString()}] ${currentState.focus.username}#${currentState.focus.discriminator}: "${message.content}"`);
+
 		// Speak the text of this message!
 		await speak(message.content);
 	},

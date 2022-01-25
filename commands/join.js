@@ -44,9 +44,11 @@ module.exports = {
 		// @ts-expect-error
 		const adapter = interaction.guild.voiceAdapterCreator;
 
+		const voiceChannel = interaction.options.getChannel(Options.Channel);
+
 		// Join the indicated voice channel and get a connection
 		const connection = joinVoiceChannel({
-			channelId: interaction.options.getChannel(Options.Channel).id,
+			channelId: voiceChannel.id,
 			guildId: interaction.guildId,
 			adapterCreator: adapter,
 		});

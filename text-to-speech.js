@@ -73,7 +73,7 @@ function synthesizeSpeech(text, onComplete, onError) {
 			}
 		},
 		error => {
-			console.log(error);
+			console.log(`[${(new Date).toISOString()}] TTS error: ${error}`);
 			synthesizer.close();
 			onError(error);
 		});
