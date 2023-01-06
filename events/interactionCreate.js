@@ -16,6 +16,11 @@ module.exports = {
 
 		const currentState = state.getState();
 
+		if (interaction.guildId !== state.getState().guildID) {
+			// Ignore this interaction - it didn't come from the guild we care about
+			return;
+		}
+
 		console.log(`[${(new Date).toISOString()}] Command: ${interaction.commandName}; user: ${interaction.user.username}#${interaction.user.discriminator}; options: ${JSON.stringify(interaction.options)}`);
 
 		// @ts-expect-error

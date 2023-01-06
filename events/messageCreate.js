@@ -11,6 +11,11 @@ module.exports = {
 	async execute(message) {
 		const currentState = state.getState();
 
+		if (message.guildId !== state.getState().guildID) {
+			// Ignore this message - it didn't come from the guild we care about
+			return;
+		}
+
 		if (currentState.connection == null) {
 			// We're not connected - don't try and play any audio
 			return;
