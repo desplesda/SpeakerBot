@@ -20,8 +20,8 @@ function synthesizeSpeech(text, onComplete, onError) {
 		process.env['SPEAKER_REGION'],
 	);
 
-	speechConfig.speechSynthesisLanguage = process.env['VOICE_LANGUAGE'];
-	speechConfig.speechSynthesisVoiceName = process.env['VOICE_NAME'];
+	speechConfig.speechSynthesisLanguage = state.getState().voiceLanguage;
+	speechConfig.speechSynthesisVoiceName = state.getState().voiceName;
 
 	speechConfig.speechSynthesisOutputFormat = sdk.SpeechSynthesisOutputFormat.Ogg24Khz16BitMonoOpus;
 
