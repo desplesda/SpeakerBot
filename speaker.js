@@ -43,8 +43,5 @@ process.on('unhandledRejection', error => {
 
 state.setState({ client: client, connection: null, player: null });
 
-// Login to Discord with your client's token
 client.login(process.env['DISCORD_BOT_TOKEN']);
-
-// synthesizeSpeech();
 

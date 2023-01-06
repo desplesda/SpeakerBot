@@ -9,6 +9,13 @@ const { PassThrough } = require('stream');
 const state = require('./state');
 
 /**
+ * @returns {object}
+ */
+function missingValue() {
+	throw new Error('missing value');
+}
+
+/**
  *
  * @param {string} text The text to generate speech from.
  * @param {(buffer: PassThrough) => void} onComplete A callback that receives a buffer with the generated speech.
@@ -16,8 +23,8 @@ const state = require('./state');
  */
 function synthesizeSpeech(text, onComplete, onError) {
 	const speechConfig = sdk.SpeechConfig.fromSubscription(
-		process.env['SPEAKER_KEY'],
-		process.env['SPEAKER_REGION'],
+		process.env['SPEAKER_KEY'] || missingValue(),
+		process.env['SPEAKER_REGION'] || missingValue(),
 	);
 
 	speechConfig.speechSynthesisLanguage = state.getState().voiceLanguage;
