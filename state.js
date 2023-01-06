@@ -1,6 +1,22 @@
 // @ts-check
 
+const { listVoices } = require('./text-to-speech');
+
 // Contains methods for accessing, and making changes to, the global state of the application.
+
+/** @type {import('microsoft-cognitiveservices-speech-sdk').VoiceInfo[]} */
+const voices = [];
+
+async function loadVoices() {
+	const allVoices = await listVoices();
+	for (const voice of allVoices) {
+		if (voice.locale.startsWith('en-') == false) {
+			continue;
+		}
+
+		voices.push(voice);
+	}
+}
 
 // The state is designed around the State object, which contains references to
 // the necessary Discord objects that control what we're doing.
@@ -50,5 +66,5 @@ const setState = nextState => {
 };
 
 module.exports = {
-	getState, setState,
+	getState, setState, voices, loadVoices,
 };

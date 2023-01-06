@@ -4,9 +4,7 @@
 // connection.
 
 const { createAudioResource } = require('@discordjs/voice');
-const sdk = require('microsoft-cognitiveservices-speech-sdk');
 const { PassThrough } = require('stream');
-const state = require('./state');
 
 /**
  * @returns {object}
@@ -22,19 +20,7 @@ function missingValue() {
  * @param {(*)} onError A callback that runs on error.
  */
 function synthesizeSpeech(text, onComplete, onError) {
-	const speechConfig = sdk.SpeechConfig.fromSubscription(
-		process.env['SPEAKER_KEY'] || missingValue(),
-		process.env['SPEAKER_REGION'] || missingValue(),
-	);
-
-	speechConfig.speechSynthesisLanguage = state.getState().voiceLanguage;
-	speechConfig.speechSynthesisVoiceName = state.getState().voiceName;
-
-	speechConfig.speechSynthesisOutputFormat = sdk.SpeechSynthesisOutputFormat.Ogg24Khz16BitMonoOpus;
-
-	// const audioConfig = sdk.AudioConfig.fromAudioFileOutput('output.wav');
-
-	const synthesizer = new sdk.SpeechSynthesizer(speechConfig);
+	const synthesizer = getSynthesizer();
 
 	// synthesizer.speakSsmlAsync(
 	// 	`<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis"
@@ -91,6 +77,8 @@ module.exports = {
 
 	speak: async (text) => {
 
+		const state = require('./state');
+
 		const currentState = state.getState();
 
 		// First, check to see if we can play audio.
@@ -125,4 +113,39 @@ module.exports = {
 		currentState.player.play(audioResource);
 	},
 
+	listVoices: async () => {
+		const sdk = require('microsoft-cognitiveservices-speech-sdk');
+		const speechConfig = sdk.SpeechConfig.fromSubscription(
+			process.env['SPEAKER_KEY'] || missingValue(),
+			process.env['SPEAKER_REGION'] || missingValue(),
+		);
+
+		const synthesizer = new sdk.SpeechSynthesizer(speechConfig);
+
+		const result = await synthesizer.getVoicesAsync();
+
+		return result.voices;
+	},
+
 };
+
+function getSynthesizer() {
+
+	const state = require('./state');
+	const sdk = require('microsoft-cognitiveservices-speech-sdk');
+
+	const speechConfig = sdk.SpeechConfig.fromSubscription(
+		process.env['SPEAKER_KEY'] || missingValue(),
+		process.env['SPEAKER_REGION'] || missingValue(),
+	);
+
+	speechConfig.speechSynthesisLanguage = state.getState().voiceLanguage;
+	speechConfig.speechSynthesisVoiceName = state.getState().voiceName;
+
+	speechConfig.speechSynthesisOutputFormat = sdk.SpeechSynthesisOutputFormat.Ogg24Khz16BitMonoOpus;
+
+	// const audioConfig = sdk.AudioConfig.fromAudioFileOutput('output.wav');
+	const synthesizer = new sdk.SpeechSynthesizer(speechConfig);
+
+	return synthesizer;
+}

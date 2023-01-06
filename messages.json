@@ -13,5 +13,7 @@
 	"InternalError": "I encountered an internal error! Sorry!! :(",
 
 	// The audio player failed to subscribe the player to the connection.
-	"FailedToSubscribe": "INTERNAL ERROR: Failed to subscribe the player!"
+	"FailedToSubscribe": "INTERNAL ERROR: Failed to subscribe the player!",
+
+	"VoiceNotKnown": "I encountered a problem choosing that voice! Sorry! :("
 }

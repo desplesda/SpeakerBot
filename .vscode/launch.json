@@ -5,7 +5,8 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"type": "pwa-node",
+			"type": "node",
+			"runtimeVersion": "16",
 			"request": "launch",
 			"name": "Launch Program",
 			"skipFiles": [
@@ -15,6 +16,20 @@
 			"outFiles": [
 				"${workspaceFolder}/**/*.js"
 			]
+		},
+		{
+			"type": "node",
+			"runtimeVersion": "16",
+			"request": "launch",
+			"name": "Deploy Commands",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/deploy-commands.js",
+			"outFiles": [
+				"${workspaceFolder}/**/*.js"
+			]
 		}
+
 	]
 }
