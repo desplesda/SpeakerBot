@@ -28,6 +28,12 @@ This bot is configured using environment variables. If you have a `.env` file in
 
 ## Commands
 
+The bot is controlled through these commands. In order for them to work, the command need to be installed on your Discord server, by running the following command:
+
+```shell
+node deploy-commands.js
+```
+
 ### Join a channel
 
 `/join <`**`channel`**`>`: The bot will join the specificed voice channel. The bot will begin speaking the messages from the user who requested it, in the channel that this command was used.
