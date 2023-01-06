@@ -100,9 +100,15 @@ module.exports = {
 
 		/** @type PassThrough */
 		const speech = await new Promise((resolve) => {
-			synthesizeSpeech(text, (result) => {
-				resolve(result);
-			});
+			synthesizeSpeech(
+				text,
+				(result) => {
+					resolve(result);
+				},
+				(error) => {
+					console.error(`Error synthesizing speech: ${error}`);
+				},
+			);
 		});
 
 		// Create an audio resource from the returned stream.
