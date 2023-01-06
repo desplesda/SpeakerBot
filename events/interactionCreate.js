@@ -16,7 +16,7 @@ module.exports = {
 
 		const currentState = state.getState();
 
-		if (interaction.guildId !== state.getState().guildID) {
+		if (interaction.guildId !== currentState.guildID) {
 			// Ignore this interaction - it didn't come from the guild we care about
 			return;
 		}

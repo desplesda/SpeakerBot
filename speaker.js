@@ -41,7 +41,7 @@ process.on('unhandledRejection', error => {
 	console.error('Unhandled promise rejection:', error);
 });
 
-state.setState({ client: client, connection: null, player: null });
+state.setState({ ...state.getState(), client: client, connection: null, player: null });
 
 client.login(process.env['DISCORD_BOT_TOKEN']);
 
