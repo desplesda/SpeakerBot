@@ -11,7 +11,7 @@ async function start() {
 
 	for (const voice of state.voices) {
 		/** @type {import('microsoft-cognitiveservices-speech-sdk').VoiceInfo} */
-		console.log(`Registered voice: ${voice.shortName}`);
+		console.log(`[${(new Date).toISOString()}] Registered voice: ${voice.shortName}`);
 	}
 
 	// Create a new client instance
