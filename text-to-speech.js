@@ -55,7 +55,8 @@ function synthesizeSpeech(text, onComplete, onError) {
 		result => {
 			synthesizer.close();
 			if (result) {
-				const { audioData } = result;
+				const { audioData, audioDuration } = result;
+				console.log(`[${(new Date).toISOString()}] Received ${audioDuration / 10000000}s of audio`);
 
 				synthesizer.close();
 
