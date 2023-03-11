@@ -24,7 +24,7 @@ This bot is configured using environment variables. If you have a `.env` file in
 * `VOICE_NAME`: The name of the Azure Speech Neural Voice to use.
 * `DISCORD_BOT_TOKEN`: The Discord bot token to connect to Discord with.
 * `DISCORD_CLIENT_ID`: The bot's client ID.
-* `DISCORD_GUILD_ID`: The ID of the Discord server that the bot should be working with. (This is only used with the `deploy-commands.js` tool.)
+* `DISCORD_GUILD_ID`: The ID of the Discord server that the bot should be working with.
 
 ## Commands
 
