@@ -15,7 +15,7 @@ module.exports = {
 
 		if (currentState.connection) {
 
-			if (!currentState.focus || currentState.textChannel) {
+			if (!currentState.focus || !currentState.textChannel) {
 				await interaction.reply({ content: 'I\'m not currently speaking anyone\'s messages.', ephemeral: true });
 			}
 			else {
