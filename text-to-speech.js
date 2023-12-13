@@ -75,7 +75,7 @@ module.exports = {
 
 		// First, check to see if we can play audio.
 
-		if (currentState.player == null) {
+		if (currentState.audioPlayer == null) {
 			// We can't do anything - we have no player to use. We also have no
 			// Discord interaction to use to send a message on, so the best we
 			// can do here is to log to the console...
@@ -102,7 +102,7 @@ module.exports = {
 		const audioResource = createAudioResource(speech);
 
 		// Play the stream into the voice channel connection.
-		currentState.player.play(audioResource);
+		currentState.audioPlayer.play(audioResource);
 	},
 
 	listVoices: async () => {

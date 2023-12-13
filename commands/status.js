@@ -13,13 +13,13 @@ module.exports = {
 
 		const currentState = state.getState();
 
-		if (currentState.connection) {
+		if (currentState.voiceConnection) {
 
-			if (!currentState.focus || !currentState.textChannel) {
+			if (!currentState.focusedUser || !currentState.textChannel) {
 				await interaction.reply({ content: 'I\'m not currently speaking anyone\'s messages.', ephemeral: true });
 			}
 			else {
-				const focusUser = `<@${currentState.focus.id}>`;
+				const focusUser = `<@${currentState.focusedUser.id}>`;
 
 				const textChannel = `<#${currentState.textChannel.id}>`;
 

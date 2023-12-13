@@ -24,11 +24,11 @@ async function loadVoices() {
 /**
  * @typedef {Object} State The global state of the application.
  * @property {import('discord.js').Client | null} client The Discord client.
- * @property {import('@discordjs/voice').VoiceConnection | null} connection The
+ * @property {import('@discordjs/voice').VoiceConnection | null} voiceConnection The
  * current voice connection.
- * @property {import('@discordjs/voice').AudioPlayer | null} player The current
+ * @property {import('@discordjs/voice').AudioPlayer | null} audioPlayer The current
  * audio player.
- * @property {import('discord.js').User | null} focus The user we are speaking
+ * @property {import('discord.js').User | null} focusedUser The user we are speaking
  * messages from.
  * @property {import('discord.js').TextBasedChannel | null} textChannel The text
  * channel we should speak messages from, if they come from the focused user.
@@ -43,9 +43,9 @@ async function loadVoices() {
 /** @type {State} */
 let state = {
 	client: null,
-	connection: null,
-	player: null,
-	focus: null,
+	voiceConnection: null,
+	audioPlayer: null,
+	focusedUser: null,
 	textChannel: null,
 	voiceName: 'en-AU-WilliamNeural',
 	voiceLanguage: 'en-AU',

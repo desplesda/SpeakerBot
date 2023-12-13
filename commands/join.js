@@ -91,7 +91,7 @@ module.exports = {
 				console.error('Lost my connection!');
 				connection.destroy();
 				subscription.unsubscribe();
-				state.setState({ ...state.getState(), connection: null, player: null, focus: null });
+				state.setState({ ...state.getState(), voiceConnection: null, audioPlayer: null, focusedUser: null });
 
 			}
 		});
@@ -102,7 +102,7 @@ module.exports = {
 
 		const textChannel = interaction.channel;
 
-		state.setState({ ...currentState, player, connection, focus, textChannel });
+		state.setState({ ...currentState, audioPlayer: player, voiceConnection: connection, focusedUser: focus, textChannel });
 
 		await interaction.reply({ content: messages.ConnectionComplete, ephemeral: true });
 	},
