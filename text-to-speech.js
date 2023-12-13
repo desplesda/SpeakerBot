@@ -45,6 +45,7 @@ function synthesizeSpeech(text, onComplete, onError) {
 					console.error(`[${(new Date).toISOString()}] TTS error: ${result.errorDetails}`);
 					synthesizer.close();
 					onError(result.errorDetails);
+					return;
 				}
 
 				console.log(`[${(new Date).toISOString()}] Received ${audioDuration / 10000000}s of audio`);
@@ -113,7 +114,7 @@ module.exports = {
 		return result.voices;
 	},
 
-	/** @type {(string) => Promise<string[] | undefined>} */
+	/** @type {(voiceName: string) => Promise<string[] | undefined>} */
 	listStyles: async (voiceName) => {
 		const voice = (await this.listVoices()).filter(v => v.localName == voiceName)[0];
 		return voice.styleList;
