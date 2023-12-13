@@ -20,17 +20,17 @@ module.exports = {
 
 		const currentState = state.getState();
 
-		if (currentState.connection == null) {
+		if (currentState.voiceConnection == null) {
 			await interaction.reply({ content: messages.NotInChannel, ephemeral: true });
 			return;
 		}
 
-		currentState.connection.destroy();
-		currentState.player.stop();
+		currentState.voiceConnection.destroy();
+		currentState.audioPlayer?.stop();
 
 		await interaction.reply({ content: messages.DisconnectionComplete, ephemeral: true });
 
-		state.setState({ ...currentState, connection: null, player: null, focus: null, textChannel: null });
+		state.setState({ ...currentState, voiceConnection: null, audioPlayer: null, focusedUser: null, textChannel: null });
 
 	},
 };

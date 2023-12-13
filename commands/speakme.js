@@ -20,13 +20,13 @@ module.exports = {
 
 		const currentState = state.getState();
 
-		const focus = interaction.user;
+		const focusedUser = interaction.user;
 
 		const textChannel = interaction.channel;
 
-		state.setState({ ...currentState, focus, textChannel });
+		state.setState({ ...currentState, focusedUser, textChannel });
 
-		if (currentState.connection) {
+		if (currentState.voiceConnection) {
 			await interaction.reply({ content: `I'm now speaking <@${interaction.user.id}>'s messages.`, ephemeral: false });
 		}
 		else {
