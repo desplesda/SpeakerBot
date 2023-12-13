@@ -23,7 +23,7 @@ module.exports = {
 
 				const textChannel = `<#${currentState.textChannel.id}>`;
 
-				await interaction.reply({ content: `I'm currently speaking ${focusUser}'s messages in ${textChannel}, using voice ${currentState.voiceName}.`, ephemeral: true });
+				await interaction.reply({ content: `I'm currently speaking ${focusUser}'s messages in ${textChannel}, using voice \`${currentState.voiceName}\` and style \`${currentState.voiceStyle}\`.`, ephemeral: true });
 
 			}
 		}
