@@ -9,7 +9,14 @@ module.exports = {
 
 	/** @param {import('discord.js').CommandInteraction} interaction */
 	async execute(interaction) {
-		const voiceNames = voices.map(v => `${v.localName} (${v.locale})`);
+		const voiceNames = voices.map(v => {
+			if (v.styleList.length > 0) {
+				return `${v.localName} (${v.locale}, ${v.styleList.length} styles)`;
+			}
+			else {
+				return `${v.localName} (${v.locale})`;
+			}
+		});
 
 		interaction.reply({ content: `Available voices:\n${voiceNames.join('\n')}`, ephemeral: true });
 	},

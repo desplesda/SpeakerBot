@@ -45,11 +45,22 @@ module.exports = {
 		const adapter = interaction.guild.voiceAdapterCreator;
 
 		const voiceChannel = interaction.options.getChannel(Options.Channel);
+		const guildId = interaction.guildId;
+
+		if (!voiceChannel) {
+			interaction.reply('That\'s not a valid channel!');
+			return;
+		}
+
+		if (!guildId) {
+			interaction.reply('You need to send this command from inside a server!');
+			return;
+		}
 
 		// Join the indicated voice channel and get a connection
 		const connection = joinVoiceChannel({
 			channelId: voiceChannel.id,
-			guildId: interaction.guildId,
+			guildId: guildId,
 			adapterCreator: adapter,
 		});
 
@@ -63,7 +74,7 @@ module.exports = {
 		if (!subscription) {
 			// Unsubscribe after 5 seconds (stop playing audio on the voice connection)
 			await interaction.reply({ content: messages.FailedToSubscribe, ephemeral: true });
-			setTimeout(() => subscription.unsubscribe(), 5_000);
+			// setTimeout(() => subscription.unsubscribe(), 5_000);
 			return;
 		}
 

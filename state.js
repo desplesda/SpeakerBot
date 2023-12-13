@@ -30,9 +30,13 @@ async function loadVoices() {
  * audio player.
  * @property {import('discord.js').User | null} focus The user we are speaking
  * messages from.
- * @property {import('discord.js').TextBasedChannel | null} textChannel The text channel we should speak messages from, if they come from the focused user.
- * @property {string} voiceName The name of the Azure Speech voice we are using. This must be a valid voice for the language specified by voiceLanguage.
+ * @property {import('discord.js').TextBasedChannel | null} textChannel The text
+ * channel we should speak messages from, if they come from the focused user.
+ * @property {string} voiceName The name of the Azure Speech voice we are using.
+ * This must be a valid voice for the language specified by voiceLanguage.
  * @property {string} voiceLanguage The language we are speaking in.
+ * @property {string} voiceStyle The style of the voice to use. If the specified
+ * style is not applicable, it is ignored and a neutral style is used.
  * @property {string} guildID The guild ID this process is listening for.
  */
 
@@ -45,6 +49,7 @@ let state = {
 	textChannel: null,
 	voiceName: 'en-AU-WilliamNeural',
 	voiceLanguage: 'en-AU',
+	voiceStyle: 'neutral',
 	get guildID() {
 
 		const guildID = process.env['DISCORD_GUILD_ID'];

@@ -49,13 +49,31 @@ function synthesizeSpeech(text, onComplete, onError) {
 	// 		onError(error);
 	// 	});
 
+	const state = require('./state');
 
-	synthesizer.speakTextAsync(
-		text,
+	const ssmlToSpeak = `
+	<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="en-US">
+		<voice name="${state.getState().voiceName}">
+			<mstts:express-as style="${state.getState().voiceStyle}" styledegree="1">
+				${text}
+			</mstts:express-as>
+		</voice>
+	</speak>
+	`;
+
+	synthesizer.speakSsmlAsync(
+		ssmlToSpeak,
 		result => {
 			synthesizer.close();
 			if (result) {
 				const { audioData, audioDuration } = result;
+
+				if (!audioData) {
+					console.error(`[${(new Date).toISOString()}] TTS error: ${result.errorDetails}`);
+					synthesizer.close();
+					onError(result.errorDetails);
+				}
+
 				console.log(`[${(new Date).toISOString()}] Received ${audioDuration / 10000000}s of audio`);
 
 				synthesizer.close();
@@ -67,10 +85,32 @@ function synthesizeSpeech(text, onComplete, onError) {
 			}
 		},
 		error => {
-			console.log(`[${(new Date).toISOString()}] TTS error: ${error}`);
+			console.error(`[${(new Date).toISOString()}] TTS error: ${error}`);
 			synthesizer.close();
 			onError(error);
 		});
+
+	// synthesizer.speakTextAsync(
+	// 	text,
+	// 	result => {
+	// 		synthesizer.close();
+	// 		if (result) {
+	// 			const { audioData, audioDuration } = result;
+	// 			console.log(`[${(new Date).toISOString()}] Received ${audioDuration / 10000000}s of audio`);
+
+	// 			synthesizer.close();
+
+	// 			// convert arrayBuffer to stream
+	// 			const bufferStream = new PassThrough();
+	// 			bufferStream.end(Buffer.from(audioData));
+	// 			onComplete(bufferStream);
+	// 		}
+	// 	},
+	// 	error => {
+	// 		console.log(`[${(new Date).toISOString()}] TTS error: ${error}`);
+	// 		synthesizer.close();
+	// 		onError(error);
+	// 	});
 }
 
 
@@ -115,20 +155,21 @@ module.exports = {
 	},
 
 	listVoices: async () => {
-		const sdk = require('microsoft-cognitiveservices-speech-sdk');
-		const speechConfig = sdk.SpeechConfig.fromSubscription(
-			process.env['SPEAKER_KEY'] || missingValue(),
-			process.env['SPEAKER_REGION'] || missingValue(),
-		);
-
-		const synthesizer = new sdk.SpeechSynthesizer(speechConfig);
+		const synthesizer = getSynthesizer();
 
 		const result = await synthesizer.getVoicesAsync();
 
 		return result.voices;
 	},
 
+	/** @type {(string) => Promise<string[] | undefined>} */
+	listStyles: async (voiceName) => {
+		const voice = (await this.listVoices()).filter(v => v.localName == voiceName)[0];
+		return voice.styleList;
+	},
+
 };
+
 
 function getSynthesizer() {
 

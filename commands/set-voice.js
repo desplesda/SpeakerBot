@@ -28,7 +28,7 @@ module.exports = {
 
 		const displayName = `${voice.localName} (${voice.locale})`;
 
-		setState({ ...getState(), voiceName: voice.shortName, voiceLanguage: voice.locale });
+		setState({ ...getState(), voiceName: voice.shortName, voiceLanguage: voice.locale, voiceStyle: 'neutral' });
 
 		interaction.reply({ content: `Speaking voice is now ${displayName}`, ephemeral: true });
 	},
