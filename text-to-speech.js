@@ -22,33 +22,6 @@ function missingValue() {
 function synthesizeSpeech(text, onComplete, onError) {
 	const synthesizer = getSynthesizer();
 
-	// synthesizer.speakSsmlAsync(
-	// 	`<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis"
-	// 	xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="${process.env['VOICE_LANGUAGE']}">
-	//  <voice name="${process.env['VOICE_NAME']}">
-	// 	 <mstts:express-as style="lyrical">
-	// 		 ${text}
-	// 	 </mstts:express-as>
-	//  </voice>
-	// 	</speak>`, result => {
-	// 		synthesizer.close();
-	// 		if (result) {
-	// 			const { audioData } = result;
-
-	// 			synthesizer.close();
-
-	// 			// convert arrayBuffer to stream
-	// 			const bufferStream = new PassThrough();
-	// 			bufferStream.end(Buffer.from(audioData));
-	// 			onComplete(bufferStream);
-	// 		}
-	// 	},
-	// 	error => {
-	// 		console.log(error);
-	// 		synthesizer.close();
-	// 		onError(error);
-	// 	});
-
 	const state = require('./state');
 
 	const ssmlToSpeak = `
@@ -89,28 +62,6 @@ function synthesizeSpeech(text, onComplete, onError) {
 			synthesizer.close();
 			onError(error);
 		});
-
-	// synthesizer.speakTextAsync(
-	// 	text,
-	// 	result => {
-	// 		synthesizer.close();
-	// 		if (result) {
-	// 			const { audioData, audioDuration } = result;
-	// 			console.log(`[${(new Date).toISOString()}] Received ${audioDuration / 10000000}s of audio`);
-
-	// 			synthesizer.close();
-
-	// 			// convert arrayBuffer to stream
-	// 			const bufferStream = new PassThrough();
-	// 			bufferStream.end(Buffer.from(audioData));
-	// 			onComplete(bufferStream);
-	// 		}
-	// 	},
-	// 	error => {
-	// 		console.log(`[${(new Date).toISOString()}] TTS error: ${error}`);
-	// 		synthesizer.close();
-	// 		onError(error);
-	// 	});
 }
 
 
