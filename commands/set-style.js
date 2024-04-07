@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { voices, setState, getState } = require('../state');
+const { voices, setState, getState, saveState } = require('../state');
 
 const Options = {
 	Style: 'style',
@@ -40,6 +40,7 @@ module.exports = {
 		}
 
 		setState({ ...getState(), voiceStyle: selectedStyle });
+		saveState();
 
 		interaction.reply({ content: `Voice style is now ${selectedStyle}`, ephemeral: true });
 	},

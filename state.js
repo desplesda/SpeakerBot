@@ -2,6 +2,9 @@
 
 const { listVoices } = require('./text-to-speech');
 
+const fs = require('fs');
+const path = require('path');
+
 // Contains methods for accessing, and making changes to, the global state of the application.
 
 /** @type {import('microsoft-cognitiveservices-speech-sdk').VoiceInfo[]} */
@@ -62,6 +65,25 @@ let state = {
 	},
 };
 
+const statePath = path.join(__dirname, 'state.json');
+
+const saveState = () => {
+	const stateJSON = JSON.stringify({
+		voiceName: state.voiceName,
+		voiceLanguage: state.voiceLanguage,
+		voiceStyle: state.voiceStyle
+	});
+	fs.writeFileSync(statePath, stateJSON);
+}
+
+const tryLoadState = () => {
+	try {
+		const stateJSON = JSON.parse(fs.readFileSync(statePath).toString());
+		state = {...state, ...stateJSON};
+	} catch (err) {
+	}
+}
+
 /** @returns {State} */
 const getState = () => state;
 
@@ -71,5 +93,5 @@ const setState = nextState => {
 };
 
 module.exports = {
-	getState, setState, voices, loadVoices,
+	getState, setState, saveState, tryLoadState, voices, loadVoices,
 };

@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { voices, setState, getState } = require('../state');
+const { voices, setState, getState, saveState } = require('../state');
 
 const Options = {
 	Voice: 'voice',
@@ -29,6 +29,7 @@ module.exports = {
 		const displayName = `${voice.localName} (${voice.locale})`;
 
 		setState({ ...getState(), voiceName: voice.shortName, voiceLanguage: voice.locale, voiceStyle: 'neutral' });
+		saveState();
 
 		interaction.reply({ content: `Speaking voice is now ${displayName}`, ephemeral: true });
 	},

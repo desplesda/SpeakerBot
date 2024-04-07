@@ -51,6 +51,8 @@ async function start() {
 
 	state.setState({ ...state.getState(), client: client, voiceConnection: null, audioPlayer: null });
 
+	state.tryLoadState();
+
 	client.login(process.env['DISCORD_BOT_TOKEN']);
 
 }
