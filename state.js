@@ -5,6 +5,8 @@ const { listVoices } = require('./text-to-speech');
 const fs = require('fs');
 const path = require('path');
 
+const util = require('util');
+
 // Contains methods for accessing, and making changes to, the global state of the application.
 
 /** @type {import('microsoft-cognitiveservices-speech-sdk').VoiceInfo[]} */
@@ -79,8 +81,9 @@ const saveState = () => {
 const tryLoadState = () => {
 	try {
 		const stateJSON = JSON.parse(fs.readFileSync(statePath).toString());
-		state = {...state, ...stateJSON};
+		state = { ...state, ...stateJSON };
 	} catch (err) {
+		console.warn(`Failed to load state from ${statePath}`);
 	}
 }
 

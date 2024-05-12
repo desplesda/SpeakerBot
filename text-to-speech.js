@@ -13,6 +13,8 @@ function missingValue() {
 	throw new Error('missing value');
 }
 
+
+
 /**
  *
  * @param {string} text The text to generate speech from.
@@ -24,15 +26,17 @@ function synthesizeSpeech(text, onComplete, onError) {
 
 	const state = require('./state');
 
+	const encodedText = text.replace(/[\u00A0-\u9999<>\&]/g, i => '&#'+i.charCodeAt(0)+';')
 	const ssmlToSpeak = `
 	<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="en-US">
 		<voice name="${state.getState().voiceName}">
 			<mstts:express-as style="${state.getState().voiceStyle}" styledegree="1">
-				${text}
+				${encodedText}
 			</mstts:express-as>
 		</voice>
 	</speak>
 	`;
+
 
 	synthesizer.speakSsmlAsync(
 		ssmlToSpeak,

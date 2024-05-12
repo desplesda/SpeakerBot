@@ -102,6 +102,8 @@ module.exports = {
 
 		const textChannel = interaction.channel;
 
+		console.log(`Connected to audio channel: ${connection.state}`)
+
 		state.setState({ ...currentState, audioPlayer: player, voiceConnection: connection, focusedUser: focus, textChannel });
 
 		await interaction.reply({ content: messages.ConnectionComplete, ephemeral: true });
