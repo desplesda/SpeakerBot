@@ -24,19 +24,28 @@ module.exports = {
 			return;
 		}
 
-		// Only relay messages from our current channel
-		if (message.channel.id != currentState.textChannel?.id) {
+		if (!message.author) {
+			// The message doesn't have a valid user
 			return;
 		}
+
+		const isFromOverrideUser = currentState.overrideAllowUsers.includes(message.author.id);
+		const isFromFocusedUser = message.author.id == currentState.focusedUser?.id
+		const isFromValidUser = isFromFocusedUser || isFromOverrideUser;
 
 		// Only relay messages from our focused user
-		if (message.member?.id != currentState.focusedUser?.id) {
+		if (!isFromValidUser) {
 			return;
 		}
 
-		console.log(`[${(new Date).toISOString()}] ${currentState.focusedUser?.username}#${currentState.focusedUser?.discriminator}: "${message.content}"`);
+		// Only relay messages from our current channel
+		if (!isFromOverrideUser && message.channel.id != currentState.textChannel?.id) {
+			return;
+		}
+
+		console.log(`[${(new Date).toISOString()}] ${message.author.username}: "${message.content}"`);
 
 		// Speak the text of this message!
-		await speak(message.cleanContent);
+		await speak(message.cleanContent, {rate: isFromOverrideUser ? 1.5 : 1});
 	},
 };

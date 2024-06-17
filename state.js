@@ -43,6 +43,7 @@ async function loadVoices() {
  * @property {string} voiceStyle The style of the voice to use. If the specified
  * style is not applicable, it is ignored and a neutral style is used.
  * @property {string} guildID The guild ID this process is listening for.
+ * @property {string[]} overrideAllowUsers A list of user IDs that will be listened for events, in addition to {@link focusedUser}.
  */
 
 /** @type {State} */
@@ -55,6 +56,7 @@ let state = {
 	voiceName: 'en-AU-WilliamNeural',
 	voiceLanguage: 'en-AU',
 	voiceStyle: 'neutral',
+	overrideAllowUsers: [],
 	get guildID() {
 
 		const guildID = process.env['DISCORD_GUILD_ID'];

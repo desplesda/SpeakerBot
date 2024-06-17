@@ -18,10 +18,11 @@ function missingValue() {
 /**
  *
  * @param {string} text The text to generate speech from.
+ * @param {SpeechOptions | undefined} options Additional options for controlling speech.
  * @param {(buffer: PassThrough) => void} onComplete A callback that receives a buffer with the generated speech.
  * @param {(*)} onError A callback that runs on error.
  */
-function synthesizeSpeech(text, onComplete, onError) {
+function synthesizeSpeech(text, options, onComplete, onError) {
 	const synthesizer = getSynthesizer();
 
 	const state = require('./state');
@@ -31,7 +32,9 @@ function synthesizeSpeech(text, onComplete, onError) {
 	<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="en-US">
 		<voice name="${state.getState().voiceName}">
 			<mstts:express-as style="${state.getState().voiceStyle}" styledegree="1">
-				${encodedText}
+				<prosody rate="${options?.rate ?? 1}">
+					${encodedText}
+				</prosody>
 			</mstts:express-as>
 		</voice>
 	</speak>
@@ -69,10 +72,11 @@ function synthesizeSpeech(text, onComplete, onError) {
 		});
 }
 
+/** @typedef {{rate: number}} SpeechOptions */
 
 module.exports = {
 
-	speak: async (text) => {
+	speak: async (/** @type {string} */ text, /** @type {SpeechOptions | undefined} */ options) => {
 
 		const state = require('./state');
 
@@ -94,6 +98,7 @@ module.exports = {
 		const speech = await new Promise((resolve) => {
 			synthesizeSpeech(
 				text,
+				options,
 				(result) => {
 					resolve(result);
 				},
