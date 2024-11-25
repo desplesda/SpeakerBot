@@ -27,11 +27,6 @@ module.exports = {
 			option.setDescription('Select a channel to join');
 			option.setRequired(true);
 
-			// Type error: TypeScript gets confused about the type of these
-			// enums here, due to Discord.js Historical Reasons. It's actually
-			// fine.
-
-			// @ts-expect-error
 			option.addChannelTypes([Constants.ChannelTypes.GUILD_VOICE, Constants.ChannelTypes.GUILD_STAGE_VOICE]);
 			return option;
 		}),
