@@ -103,7 +103,7 @@ module.exports = {
 					resolve(result);
 				},
 				(error) => {
-					console.error(`Error synthesizing speech: ${error}`);
+					console.error(`[${(new Date).toISOString()}] Error synthesizing speech: ${error}`);
 				},
 			);
 		});

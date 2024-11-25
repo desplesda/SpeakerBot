@@ -20,7 +20,7 @@ module.exports = {
 
 		if (currentState.voiceConnection == null) {
 			// We're not connected - don't try and play any audio
-			console.error(`Can't send audio for message - no audio connection`)
+			console.error(`[${(new Date).toISOString()}] Can't send audio for message - no audio connection`)
 			return;
 		}
 

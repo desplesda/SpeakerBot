@@ -46,7 +46,7 @@ async function start() {
 	}
 
 	process.on('unhandledRejection', error => {
-		console.error('Unhandled promise rejection:', error);
+		console.error(`[${(new Date).toISOString()}] Unhandled promise rejection:`, error);
 	});
 
 	state.setState({ ...state.getState(), client: client, voiceConnection: null, audioPlayer: null });

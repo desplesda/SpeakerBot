@@ -88,7 +88,7 @@ module.exports = {
 			}
 			catch (error) {
 				// Seems to be a real disconnect which SHOULDN'T be recovered from
-				console.error('Lost my connection!');
+				console.error(`[${(new Date).toISOString()}] Lost my connection!`);
 				connection.destroy();
 				subscription.unsubscribe();
 				state.setState({ ...state.getState(), voiceConnection: null, audioPlayer: null, focusedUser: null });
