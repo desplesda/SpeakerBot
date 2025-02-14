@@ -3,9 +3,10 @@ const { Client, Collection, Intents } = require('discord.js');
 const fs = require('fs');
 const state = require('./state');
 const path = require('path');
+
 const os = require('os');
 
-require('dotenv').config({ path: path.resolve(process.cwd(), "..", ".env") });
+require('dotenv').config({ path: path.resolve(process.cwd(), '..', '.env') });
 
 async function start() {
 	// Fetch list of all voices
