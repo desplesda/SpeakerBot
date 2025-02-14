@@ -69,7 +69,7 @@ let state = {
 	},
 };
 
-const statePath = path.join(__dirname, 'state.json');
+const statePath = path.resolve(__dirname, '..', 'state.json');
 
 const saveState = () => {
 	const stateJSON = JSON.stringify({

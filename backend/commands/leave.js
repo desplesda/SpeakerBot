@@ -2,10 +2,12 @@
 
 // Leave the current voice channel, and close the voice connection.
 
+const path = require('path')
+
 const state = require('../state');
 
 const requireJSON5 = require('require-json5');
-const messages = requireJSON5('./messages.json');
+const messages = requireJSON5(path.join(__dirname, '../messages.json'));
 
 
 const { SlashCommandBuilder } = require('@discordjs/builders');

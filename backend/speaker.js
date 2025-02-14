@@ -2,8 +2,10 @@ const { Client, Collection, Intents } = require('discord.js');
 
 const fs = require('fs');
 const state = require('./state');
+const path = require('path');
+const os = require('os');
 
-require('dotenv').config();
+require('dotenv').config({ path: path.resolve(process.cwd(), "..", ".env") });
 
 async function start() {
 	// Fetch list of all voices
@@ -24,7 +26,7 @@ async function start() {
 	});
 
 	client.commands = new Collection();
-	const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+	const commandFiles = fs.readdirSync(path.join(__dirname, 'commands')).filter(file => file.endsWith('.js'));
 
 	for (const file of commandFiles) {
 		const command = require(`./commands/${file}`);
@@ -33,7 +35,7 @@ async function start() {
 		client.commands.set(command.data.name, command);
 	}
 
-	const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
+	const eventFiles = fs.readdirSync(path.join(__dirname, 'events')).filter(file => file.endsWith('.js'));
 
 	for (const file of eventFiles) {
 		const event = require(`./events/${file}`);

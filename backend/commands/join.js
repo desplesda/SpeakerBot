@@ -3,6 +3,8 @@
 // Join a specified voice channel, and start speaking the messages of the person
 // who ran the command.
 
+const path = require('path');
+
 const { joinVoiceChannel, createAudioPlayer, VoiceConnectionStatus, entersState } = require('@discordjs/voice');
 
 const { SlashCommandBuilder } = require('@discordjs/builders');
@@ -12,7 +14,7 @@ const state = require('../state');
 const requireJSON5 = require('require-json5');
 const { Constants } = require('discord.js');
 
-const messages = requireJSON5('./messages.json');
+const messages = requireJSON5(path.join(__dirname, '../messages.json'));
 
 const Options = {
 	Channel: 'channel',
