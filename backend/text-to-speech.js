@@ -5,13 +5,7 @@
 
 const { createAudioResource } = require('@discordjs/voice');
 const { PassThrough } = require('stream');
-
-/**
- * @returns {object}
- */
-function missingValue() {
-	throw new Error('missing value');
-}
+const { missingValue } = require('./util');
 
 /**
  *
