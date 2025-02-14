@@ -97,7 +97,7 @@ module.exports = {
 
 		const textChannel = interaction.channel;
 
-		console.log(`Connected to audio channel: ${connection.state}`)
+		console.log(`Connected to audio channel: ${connection.state}`);
 
 		state.setState({ ...currentState, audioPlayer: player, voiceConnection: connection, focusedUser: focus, textChannel });
 

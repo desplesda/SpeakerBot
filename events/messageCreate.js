@@ -1,4 +1,4 @@
-//@ts-check
+// @ts-check
 
 // When a message is created in a channel, speak it into the currently connected
 // voice channel if it's from the right user and channel.
@@ -20,7 +20,7 @@ module.exports = {
 
 		if (currentState.voiceConnection == null) {
 			// We're not connected - don't try and play any audio
-			console.error(`[${(new Date).toISOString()}] Can't send audio for message - no audio connection`)
+			console.error(`[${(new Date).toISOString()}] Can't send audio for message - no audio connection`);
 			return;
 		}
 
@@ -30,7 +30,7 @@ module.exports = {
 		}
 
 		const isFromOverrideUser = currentState.overrideAllowUsers.includes(message.author.id);
-		const isFromFocusedUser = message.author.id == currentState.focusedUser?.id
+		const isFromFocusedUser = message.author.id == currentState.focusedUser?.id;
 		const isFromValidUser = isFromFocusedUser || isFromOverrideUser;
 
 		// Only relay messages from our focused user
@@ -46,6 +46,6 @@ module.exports = {
 		console.log(`[${(new Date).toISOString()}] ${message.author.username}: "${message.content}"`);
 
 		// Speak the text of this message!
-		await speak(message.cleanContent, {rate: isFromOverrideUser ? 1.5 : 1});
+		await speak(message.cleanContent, { rate: isFromOverrideUser ? 1.5 : 1 });
 	},
 };

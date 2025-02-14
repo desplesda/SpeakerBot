@@ -75,19 +75,20 @@ const saveState = () => {
 	const stateJSON = JSON.stringify({
 		voiceName: state.voiceName,
 		voiceLanguage: state.voiceLanguage,
-		voiceStyle: state.voiceStyle
+		voiceStyle: state.voiceStyle,
 	});
 	fs.writeFileSync(statePath, stateJSON);
-}
+};
 
 const tryLoadState = () => {
 	try {
 		const stateJSON = JSON.parse(fs.readFileSync(statePath).toString());
 		state = { ...state, ...stateJSON };
-	} catch (err) {
+	}
+	catch (err) {
 		console.warn(`Failed to load state from ${statePath}`);
 	}
-}
+};
 
 /** @returns {State} */
 const getState = () => state;
