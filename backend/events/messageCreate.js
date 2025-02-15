@@ -47,6 +47,6 @@ module.exports = {
 		log(`${message.author.username}: "${message.content}"`);
 
 		// Speak the text of this message!
-		await speak(message.cleanContent, { rate: isFromOverrideUser ? 1.5 : 1 });
+		speak(message.cleanContent, { rate: isFromOverrideUser ? 1.5 : 1 });
 	},
 };

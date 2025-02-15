@@ -13,6 +13,7 @@ const state = require('../state');
 
 const requireJSON5 = require('require-json5');
 const { Constants } = require('discord.js');
+const { registerAudioPlayerIdleHook } = require('../text-to-speech');
 const { log, error } = require('../util');
 
 const messages = requireJSON5(path.join(__dirname, '../messages.json'));
@@ -64,6 +65,9 @@ module.exports = {
 
 		// Create the audio player for this connection
 		const player = createAudioPlayer();
+
+		// Set up the player to automatically play enqueued audio if it ever goes idle
+		registerAudioPlayerIdleHook(player);
 
 		// Subscribe the connection to the audio player (will play audio on the voice connection)
 		const subscription = connection.subscribe(player);
