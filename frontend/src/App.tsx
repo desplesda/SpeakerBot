@@ -97,7 +97,7 @@ const EditableButton = (
       <div className="shrink md:p-2">
         {hasName && isRenaming && props.isEditing && (
           <input
-            className="bg-white rounded-sm p-2 w-full"
+            className="bg-white rounded-sm p-2 text-black dark:text-black w-full"
             value={newName}
             onChange={(e) => setNewName(e.target.value)}
             onBlur={() => {
