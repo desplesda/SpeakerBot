@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "A Discord text-to-speech bot for people who can't use their mic.",
   "main": "speaker.js",
+  "engines": {
+    "node": "v20"
+  },
   "scripts": {
     "start": "node speaker.js",
     "test": "echo \"Error: no test specified\" && exit 1"
