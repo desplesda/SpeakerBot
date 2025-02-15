@@ -5,7 +5,7 @@
 
 const { createAudioResource } = require('@discordjs/voice');
 const { PassThrough } = require('stream');
-const { missingValue } = require('./util');
+const { missingValue, log, error, warn } = require('./util');
 
 /**
  *
@@ -41,13 +41,13 @@ function synthesizeSpeech(text, options, onComplete, onError) {
 				const { audioData, audioDuration } = result;
 
 				if (!audioData) {
-					console.error(`[${(new Date).toISOString()}] TTS error: ${result.errorDetails}`);
+					error(`TTS error: ${result.errorDetails}`);
 					synthesizer.close();
 					onError(result.errorDetails);
 					return;
 				}
 
-				console.log(`[${(new Date).toISOString()}] Received ${audioDuration / 10000000}s of audio`);
+				log(`Received ${audioDuration / 10000000}s of audio`);
 
 				synthesizer.close();
 
@@ -57,10 +57,10 @@ function synthesizeSpeech(text, options, onComplete, onError) {
 				onComplete(bufferStream);
 			}
 		},
-		error => {
-			console.error(`[${(new Date).toISOString()}] TTS error: ${error}`);
+		err => {
+			error(`TTS error: ${err}`);
 			synthesizer.close();
-			onError(error);
+			onError(err);
 		});
 }
 

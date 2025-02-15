@@ -4,6 +4,7 @@
 // the ./commands directory)
 
 const state = require('../state');
+const { log, error } = require('../util');
 
 module.exports = {
 	name: 'interactionCreate',
@@ -21,7 +22,7 @@ module.exports = {
 			return;
 		}
 
-		console.log(`[${(new Date).toISOString()}] Command: ${interaction.commandName}; user: ${interaction.user.username}#${interaction.user.discriminator}; options: ${JSON.stringify(interaction.options)}`);
+		log(`Command: ${interaction.commandName}; user: ${interaction.user.username}#${interaction.user.discriminator}; options: ${JSON.stringify(interaction.options)}`);
 
 		// @ts-expect-error
 		const command = currentState.client.commands.get(interaction.commandName);
@@ -31,8 +32,8 @@ module.exports = {
 		try {
 			await command.execute(interaction);
 		}
-		catch (error) {
-			console.error(`[${(new Date).toISOString()}] ${error}`);
+		catch (err) {
+			error(`${err}`);
 			await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
 		}
 	},

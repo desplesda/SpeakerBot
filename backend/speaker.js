@@ -4,7 +4,7 @@ const fs = require('fs');
 const state = require('./state');
 const path = require('path');
 
-const os = require('os');
+const { log, error } = require('./util');
 
 require('dotenv').config({ path: path.resolve(process.cwd(), '..', '.env') });
 
@@ -14,7 +14,7 @@ async function start() {
 
 	for (const voice of state.voices) {
 		/** @type {import('microsoft-cognitiveservices-speech-sdk').VoiceInfo} */
-		console.log(`[${(new Date).toISOString()}] Registered voice: ${voice.shortName}`);
+		log(`Registered voice: ${voice.shortName}`);
 	}
 
 	// Create a new client instance
@@ -48,8 +48,8 @@ async function start() {
 		}
 	}
 
-	process.on('unhandledRejection', error => {
-		console.error(`[${(new Date).toISOString()}] Unhandled promise rejection:`, error);
+	process.on('unhandledRejection', err => {
+		error('Unhandled promise rejection:', err);
 	});
 
 	state.setState({ ...state.getState(), client: client, voiceConnection: null, audioPlayer: null });

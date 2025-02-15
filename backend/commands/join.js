@@ -13,6 +13,7 @@ const state = require('../state');
 
 const requireJSON5 = require('require-json5');
 const { Constants } = require('discord.js');
+const { log, error } = require('../util');
 
 const messages = requireJSON5(path.join(__dirname, '../messages.json'));
 
@@ -83,9 +84,9 @@ module.exports = {
 				]);
 				// Seems to be reconnecting to a new channel - ignore disconnect
 			}
-			catch (error) {
+			catch (err) {
 				// Seems to be a real disconnect which SHOULDN'T be recovered from
-				console.error(`[${(new Date).toISOString()}] Lost my connection!`);
+				error('Lost my connection!');
 				connection.destroy();
 				subscription.unsubscribe();
 				state.setState({ ...state.getState(), voiceConnection: null, audioPlayer: null, focusedUser: null });
@@ -99,7 +100,7 @@ module.exports = {
 
 		const textChannel = interaction.channel;
 
-		console.log(`Connected to audio channel: ${connection.state}`);
+		log(`Connected to audio channel: ${connection.joinConfig.channelId}`);
 
 		state.setState({ ...currentState, audioPlayer: player, voiceConnection: connection, focusedUser: focus, textChannel });
 

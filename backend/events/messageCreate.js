@@ -6,6 +6,7 @@
 const { speak } = require('../text-to-speech');
 
 const state = require('../state');
+const { error, log } = require('../util');
 
 module.exports = {
 	name: 'messageCreate',
@@ -20,7 +21,7 @@ module.exports = {
 
 		if (currentState.voiceConnection == null) {
 			// We're not connected - don't try and play any audio
-			console.error(`[${(new Date).toISOString()}] Can't send audio for message - no audio connection`);
+			error('Can\'t send audio for message - no audio connection');
 			return;
 		}
 
@@ -43,7 +44,7 @@ module.exports = {
 			return;
 		}
 
-		console.log(`[${(new Date).toISOString()}] ${message.author.username}: "${message.content}"`);
+		log(`${message.author.username}: "${message.content}"`);
 
 		// Speak the text of this message!
 		await speak(message.cleanContent, { rate: isFromOverrideUser ? 1.5 : 1 });
