@@ -8,7 +8,6 @@ import {
   useRef,
   useState,
 } from "react";
-import "./App.css";
 
 import IconAdd from "@material-symbols/svg-400/outlined/add.svg?url";
 import IconEdit from "@material-symbols/svg-400/outlined/edit.svg?url";
