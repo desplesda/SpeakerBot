@@ -57,7 +57,7 @@ const IconButton = (props: {
   className?: string;
 }) => {
   return (
-    <div onClick={props.onClick} className={"p-1" + (props.className ?? "")}>
+    <div onClick={props.onClick} className={"p-1 " + (props.className ?? "")}>
       <img src={props.icon} className="h-5 w-5" />
     </div>
   );
