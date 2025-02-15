@@ -69,9 +69,18 @@ function synthesizeSpeech(text, options, onComplete, onError) {
 /** @type{TTSJob[]} */
 const jobQueue = [];
 
+const MAX_JOB_QUEUE_SIZE = 4
+
 const addJob = (/** @type{TTSJob} */ job) => {
+	// Add the job to the queue
 	jobQueue.push(job);
+
+	// Drop items from the queue if we've got too many
+	while (jobQueue.length > MAX_JOB_QUEUE_SIZE) {
+		jobQueue.shift();
+	}
 };
+
 const removeJob = (/** @type{TTSJob} */ job) => {
 	const index = jobQueue.indexOf(job);
 	if (index > -1) {
@@ -79,6 +88,10 @@ const removeJob = (/** @type{TTSJob} */ job) => {
 	}
 	return jobQueue;
 };
+
+const clearJobQueue = () => {
+	jobQueue.splice(0, jobQueue.length);
+}
 
 // Attempts to play the next piece of audio in the job queue, if the job has
 // available audio.
@@ -189,6 +202,8 @@ module.exports = {
 	},
 
 	registerAudioPlayerIdleHook,
+
+	clearJobQueue,
 
 };
 
