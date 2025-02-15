@@ -8,7 +8,7 @@
       "run": "npm run dev",
       "appDevserverUrl": "http://localhost:5173",
       "appName": "discord-speaker-bot-control",
-      "resourceGroup": "discord-speaker-bot-control-rg"
+      "resourceGroup": "discord-speaker-bot"
     }
   }
 }
