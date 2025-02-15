@@ -11,6 +11,7 @@ const messages = requireJSON5(path.join(__dirname, '../messages.json'));
 
 
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const { clearJobQueue } = require('../text-to-speech');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -33,6 +34,8 @@ module.exports = {
 		await interaction.reply({ content: messages.DisconnectionComplete, ephemeral: true });
 
 		state.setState({ ...currentState, voiceConnection: null, audioPlayer: null, focusedUser: null, textChannel: null });
+
+		clearJobQueue();
 
 	},
 };
