@@ -1,6 +1,6 @@
 {
 	// The bot has joined the voice channel.
-	"ConnectionComplete": "Done. I'm now speaking your messages in this channel.",
+	"ConnectionComplete": "Done. I'm now speaking your messages in this channel. The [control panel](<%CONTROL_PANEL_URL%>) is now available.",
 	
 	// The bot has left the voice channel.
 	"DisconnectionComplete": "Done.",

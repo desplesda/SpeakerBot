@@ -42,6 +42,7 @@ async function loadVoices() {
  * style is not applicable, it is ignored and a neutral style is used.
  * @property {string} guildID The guild ID this process is listening for.
  * @property {string[]} overrideAllowUsers A list of user IDs that will be listened for events, in addition to {@link focusedUser}.
+ * @property {Zod.infer<typeof import('../frontend/src/schemas').AvailableMessages>} messages
  */
 
 /** @type {State} */
@@ -55,6 +56,7 @@ let state = {
 	voiceLanguage: 'en-AU',
 	voiceStyle: 'neutral',
 	overrideAllowUsers: [],
+	messages: { groups: [] },
 	get guildID() {
 
 		const guildID = process.env['DISCORD_GUILD_ID'];
@@ -74,6 +76,7 @@ const saveState = () => {
 		voiceName: state.voiceName,
 		voiceLanguage: state.voiceLanguage,
 		voiceStyle: state.voiceStyle,
+		messages: state.messages,
 	});
 	fs.writeFileSync(statePath, stateJSON);
 };
@@ -88,14 +91,30 @@ const tryLoadState = () => {
 	}
 };
 
+/** @typedef {(state: State)=>void} StateChangeListener */
+
+/** @type {StateChangeListener[]} */
+let changeListeners = [];
+
 /** @returns {State} */
 const getState = () => state;
 
 /** @param {State} nextState */
 const setState = nextState => {
 	state = nextState;
+	for (const listener of changeListeners) {
+		listener(nextState);
+	}
+};
+
+const addStateChangeListener = (/** @type{StateChangeListener}*/ listener) => {
+	changeListeners.push(listener);
+};
+
+const removeStateChangeListener = (/** @type{StateChangeListener} */ listener) => {
+	changeListeners = changeListeners.filter(l => l !== listener);
 };
 
 module.exports = {
-	getState, setState, saveState, tryLoadState, voices, loadVoices,
+	getState, setState, saveState, tryLoadState, voices, loadVoices, addStateChangeListener, removeStateChangeListener,
 };

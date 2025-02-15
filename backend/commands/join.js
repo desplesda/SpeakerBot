@@ -108,6 +108,8 @@ module.exports = {
 
 		state.setState({ ...currentState, audioPlayer: player, voiceConnection: connection, focusedUser: focus, textChannel });
 
-		await interaction.reply({ content: messages.ConnectionComplete, ephemeral: true });
+		const controlPanelURL = `${process.env['CONTROL_PANEL_URL']}?r=${guildId}`;
+
+		await interaction.reply({ content: messages.ConnectionComplete.replace('%CONTROL_PANEL_URL%', controlPanelURL), ephemeral: true });
 	},
 };
