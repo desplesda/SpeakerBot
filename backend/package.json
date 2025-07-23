@@ -21,7 +21,7 @@
     "discord-api-types": "^0.26.1",
     "discord.js": "^13.13.1",
     "dotenv": "^14.2.0",
-    "microsoft-cognitiveservices-speech-sdk": "^1.24.1",
+    "microsoft-cognitiveservices-speech-sdk": "^1.45.0",
     "opusscript": "^0.0.8",
     "pm2": "^5.3.0",
     "require-json5": "^1.1.0",
