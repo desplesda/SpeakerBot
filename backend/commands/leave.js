@@ -2,7 +2,7 @@
 
 // Leave the current voice channel, and close the voice connection.
 
-const path = require('path')
+const path = require('path');
 
 const state = require('../state');
 
