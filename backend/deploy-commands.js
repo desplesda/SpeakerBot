@@ -23,7 +23,7 @@ async function run() {
 
 	// Find every .js file in the ./commands folder.
 	const commands = [];
-	const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+	const commandFiles = fs.readdirSync(__dirname + '/commands').filter(file => file.endsWith('.js'));
 
 	// For each command we found, push its 'data' property into the commands list.
 	for (const file of commandFiles) {
