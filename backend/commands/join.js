@@ -61,6 +61,7 @@ module.exports = {
 			channelId: voiceChannel.id,
 			guildId: guildId,
 			adapterCreator: adapter,
+			daveEncryption: true,
 		});
 
 		// Create the audio player for this connection
